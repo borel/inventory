@@ -1,23 +1,23 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name inventoryApp
- * @description
- * # inventoryApp
- *
- * Main module of the application.
- */
-angular
-  .module('inventoryApp', [
+
+
+var inventoryApp = angular.module('inventoryApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
+    'ngTouch',
+    'ui.sortable',
+    'myAbout',
+    'myMain',
+    'testService',
+    'userService',
+  ]);
+
+
+inventoryApp.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

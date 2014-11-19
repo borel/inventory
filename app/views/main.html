@@ -1,6 +1,55 @@
 <div class="container">
-  <h2>My todos</h2>
-  <p class="form-group" ng-repeat="todo in todos">
-    <input type="text" ng-model="todo" class="form-control">
-  </p>
-</div>
+
+  <!-- Todos input 
+  <form role="form" ng-submit="addTodo()">
+    <div class="row">
+      <div class="input-group">
+        <input type="text" ng-model="user" placeholder="What needs to be done?" class="form-control">
+        <span class="input-group-btn">
+          <input type="submit" class="btn btn-primary" value="Add">
+        </span>
+      </div>
+    </div>
+  -->
+    
+
+    <!-- tab list -->
+ <div ui-sortable ng-model="users">
+
+  {{name}}
+  {{variable}}
+     <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th><input ng-model='search.id' placeholder='Id...'/></th>
+          <th><input ng-model='search.username' placeholder='Username...'/></th>
+          <th><input ng-model='search.email' placeholder='Email...'/></th>
+          <th><input ng-model='search.last_login' placeholder='Date de login...'/></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr ng-repeat="user in users | filter:search | orderBy:'username'">
+                <td>{{user.id}}</td>
+                <td>{{user.username}} </td>
+                <td>{{user.email}}</td>
+                <td>{{user.last_login}}</td>
+        </tr>
+    </tbody>
+    </table>
+    
+
+    <!-- Todos list
+   <div ui-sortable ng-model="users">
+    <p class="input-group" ng-repeat="user in users" style="padding:5px 10px; cursor: move;">
+      <input type="text" ng-model="user.id" class="form-control" style="padding:5px 10px">
+      <input type="text" ng-model="user.nom" class="form-control">
+      <input type="date" ng-model="user.date" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-danger" ng-click="removeTodo($index)" aria-label="Remove">X</button>
+      </span>
+    </p>
+  </div>
+   -->
+  </form>
+</div>  

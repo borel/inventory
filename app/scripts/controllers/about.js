@@ -7,11 +7,13 @@
  * # AboutCtrl
  * Controller of the inventoryApp
  */
-angular.module('inventoryApp')
-  .controller('AboutCtrl', function ($scope) {
-    $scope.awesomeThings = [
+
+var myAbout = angular.module('myAbout',[]);
+
+myAbout.controller('AboutCtrl', ['$scope', function($scope) {
+      $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+}]);

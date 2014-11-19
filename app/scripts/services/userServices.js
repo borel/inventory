@@ -1,26 +1,20 @@
 'use strict';
 var userService = angular.module('userService',[]);
-userService.factory('userFactory',
-	[function(){
-
+userService.factory('userFactory',function($http, $templateCache){
+ 
 	var users = {};
-
-	users.getUsers = function($http,$scope,$templateCache){
-		 $http({method: $scope.method, url: $scope.url, cache: $templateCache}).
+ 
+	users.getUsers = function(){
+		var url = 'http://localhost/inventory_symfony/Symfony/web/app_dev.php/api/user/all';
+		 $http.get(url).
 	        success(function(data) {
-	          $scope.users =  data ;
+	        	console.log(data);
+	         return data;
 	        }).
-	        error(function(data) {
-	          $scope.users =  data ;
+	        error(function(err) {
+	          return err;
 	    	});
  	};
-
-
-	users.getName = function(){
-		return 'borel';
-	}
-	
-	
-
+ 
 	 return users;
-}]);
+});

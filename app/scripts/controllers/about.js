@@ -153,15 +153,25 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
         return ret;
     };
 
+    var getDate = function(){
+      var dateJour = new Date();
+      var hour = dateJour.getHours();
+      var minute = dateJour.getMinutes();
+      var seconde = dateJour.getSeconds();
+
+      return dateJour.getHours()+":"+dateJour.getMinutes()+":"+dateJour.getSeconds();
+
+    }
 
     $scope.start = function(){
-       loadLive();
+      $scope.dateStart = getDate();
+      loadLive();
     }
 
     var promise;
 
-    var loadLive = function(){
-      $scope.counter = $scope.counter + 1;
+    var loadLive = function(bool){
+      $scope.dateMaj = getDate();
       initHR();
       initCadence();
       initMap();
@@ -169,14 +179,16 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
    }
 
     $scope.stop = function(){
-        $timeout.cancel(promise);
+      $scope.dateMaj = getDate();
+      $timeout.cancel(promise);
     }
 
     $scope.update = function(){
-      $scope.counter = 0;
-        initHR();
-       initCadence();
-     initMap();
+      $scope.dateStart = '';
+      $scope.dateMaj = getDate();
+      initHR();
+      initCadence();
+      initMap();
     }
 
 
@@ -186,11 +198,19 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
         };
     }
 
-   
-    $scope.counter = 0;
+    $scope.xAxisTickFormatFunction = function(){
+       return function(d) {
+          return d3.time.format("%Hh%Mm%Ss")(new Date(d/1000));
+        };
+    };
+
+
+    $scope.dateStart = getDate();   
+    $scope.dateMaj = getDate();
     initHR();
     initCadence();
     initMap();
+   
 
 
   

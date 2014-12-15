@@ -1,65 +1,86 @@
+<div>
 
-<div >
+  
+                  
+    <div style="margin-left:115% ; width:1200px"> 
 
- 
-      <button type="button" class="btn btn-warn btn-sm" ng-click="start()">start</button>
-      <button type="button" class="btn btn-warn btn-sm" ng-click="stop()">stop</button>
-      <button type="button" class="btn btn-warn btn-sm" ng-click="update()">update</button>
+        <button type="button" class="btn btn-warn btn-sm" ng-click="start()">Start</button>
+        <button type="button" class="btn btn-warn btn-sm" ng-click="stop()">Stop</button>
+        <button type="button" class="btn btn-warn btn-sm" ng-click="update()">Update</button>
+        
+    </div>
+
+    <div style="margin-left:110% ; width:1200px">
+        <ul></ul>
+     <B> Start at : <FONT color="green">  {{dateStart}} </font> - <FONT color="red"> Last update </font> {{dateMaj}} </B>
+    </div>
+  
+
+    <div style="margin-left:30%"> 
+            <table width="1400" height="250">
+                <tr>
+                    <td width="40" height="50">
+                        <img src="images/XXXHDPI-freq-ped.png" width="50" height="50"  >
+                    </td>
+                    <td width="600" height="250">
+                         <nvd3-line-chart
+                                data="cadenceData"
+                                showXAxis="true"
+                                showYAxis="true"
+                                tooltips="true"
+                                width="600"
+                                height="250"
+                                interactive="true"
+                                isArea="true"
+                                showLegend="true"
+                                xAxisTickFormat="xAxisTickFormatFunction()"
+                                >
+
+                            </nvd3-line-chart>
+                    </td>
+              
+                    <td width="40" height="50">
+                        <img src="images/XXXHDPI-FC-inst.png" width="50" height="50" >
+                    </td>
+                    <td width="600" height="250">
+                          <nvd3-line-chart
+                            data="hrData"
+                            showXAxis="true"
+                            showYAxis="true"
+                            tooltips="true"
+                            width="600"
+                            height="250"
+                            interactive="true"
+                            isArea="true"
+                            showLegend="true"
+                            xAxisTickFormat="xAxisTickFormatFunction()"
+                            color="colorFunction()">
+                        </nvd3-line-chart>
+                        </td>
+                </tr>
+         </table>
+    </div>
+    <div style=" width:600px ; height:500px ;margin-left:80%">
+                    <ui-gmap-google-map 
+                        center="map.center"
+                        zoom="map.zoom"
+                        draggable="false"
+                        options="options"
+                        >
+
+                          <ui-gmap-polyline ng-repeat="p in polylines" path="p.path" stroke="p.stroke" visible='p.visible'
+                                  geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'></ui-gmap-polyline>
 
 
-      {{counter}}
-    
-	<nvd3-line-chart
-        data="cadenceData"
-        showXAxis="true"
-        showYAxis="true"
-        tooltips="true"
-        width="600"
-        height="250"
-        interactive="true"
-        isArea="true"
-        showLegend="true"
-        >
-    </nvd3-line-chart>
+                        <ui-gmap-marker coords="marker.coords" idkey="marker.id">
+                        </ui-gmap-marker>
 
-
-    <nvd3-line-chart
-        data="hrData"
-        showXAxis="true"
-        showYAxis="true"
-        tooltips="true"
-        width="600"
-        height="250"
-        interactive="true"
-        isArea="true"
-        showLegend="true"
-        color="colorFunction()">
-    </nvd3-line-chart>
+                 
+                    </ui-gmap-google-map>
+    </div>
 
 </div>
 
-<div  >
-
-    <ui-gmap-google-map 
-        center="map.center"
-        width="600"
-        height="200"
-        zoom="map.zoom"
-        draggable="false"
-        options="options"
-        >
-
-          <ui-gmap-polyline ng-repeat="p in polylines" path="p.path" stroke="p.stroke" visible='p.visible'
-                  geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'></ui-gmap-polyline>
-
-
-        <ui-gmap-marker coords="marker.coords" idkey="marker.id">
-        </ui-gmap-marker>
-
- 
-    </ui-gmap-google-map>
-
-</div>
 
 
 

@@ -12,6 +12,8 @@ body {
   padding-right: 15px;
 }
 
+.angular-google-map-container { height: 400px; }
+
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
@@ -98,4 +100,4 @@ tr.detail td {
   font-size: 0.7em;
 }
 
-
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

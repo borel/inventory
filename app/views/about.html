@@ -1,3 +1,67 @@
 
-{{awesomeThings}}
-<p>This is the about view.</p>
+<div >
+
+ 
+      <button type="button" class="btn btn-warn btn-sm" ng-click="start()">start</button>
+      <button type="button" class="btn btn-warn btn-sm" ng-click="stop()">stop</button>
+      <button type="button" class="btn btn-warn btn-sm" ng-click="update()">update</button>
+
+
+      {{counter}}
+    
+	<nvd3-line-chart
+        data="cadenceData"
+        showXAxis="true"
+        showYAxis="true"
+        tooltips="true"
+        width="600"
+        height="250"
+        interactive="true"
+        isArea="true"
+        showLegend="true"
+        >
+    </nvd3-line-chart>
+
+
+    <nvd3-line-chart
+        data="hrData"
+        showXAxis="true"
+        showYAxis="true"
+        tooltips="true"
+        width="600"
+        height="250"
+        interactive="true"
+        isArea="true"
+        showLegend="true"
+        color="colorFunction()">
+    </nvd3-line-chart>
+
+</div>
+
+<div  >
+
+    <ui-gmap-google-map 
+        center="map.center"
+        width="600"
+        height="200"
+        zoom="map.zoom"
+        draggable="false"
+        options="options"
+        >
+
+          <ui-gmap-polyline ng-repeat="p in polylines" path="p.path" stroke="p.stroke" visible='p.visible'
+                  geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'></ui-gmap-polyline>
+
+
+        <ui-gmap-marker coords="marker.coords" idkey="marker.id">
+        </ui-gmap-marker>
+
+ 
+    </ui-gmap-google-map>
+
+</div>
+
+
+
+
+

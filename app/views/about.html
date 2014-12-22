@@ -1,22 +1,96 @@
 <div>
 
-  
-                  
-    <div style="margin-left:115% ; width:1200px"> 
+  <form name='loginForm'>
+      <div  style="margin-left:46%" > 
+         <button type="button" class="btn btn-default" ng-disabled="!loginForm.$valid" ng-click="start()" ng-readonly><font color ='42095D'><b> Start </b> </font></button>
+          <button type="button" class="btn btn-default" ng-disabled="!loginForm.$valid" ng-click="stop()"><font color ='42095D'><b>Stop</b></font></button>
+          <button type="button" class="btn btn-default" ng-disabled="!loginForm.$valid" ng-click="update()"><font color ='42095D'><b>Update</b></font></button>
+      </div>
 
-        <button type="button" class="btn btn-warn btn-sm" ng-click="start()">Start</button>
-        <button type="button" class="btn btn-warn btn-sm" ng-click="stop()">Stop</button>
-        <button type="button" class="btn btn-warn btn-sm" ng-click="update()">Update</button>
-        
-    </div>
 
-    <div style="margin-left:110% ; width:1200px">
-        <ul></ul>
-     <B> Start at : <FONT color="green">  {{dateStart}} </font> - <FONT color="red"> Last update </font> {{dateMaj}} </B>
-    </div>
-  
+      <div style="margin-left:45%">
+          <ul></ul>
+          <B><font color ='42095D'> Start at : </font> <font color="green">  {{dateStart}} </font> - <FONT color="red"> Last update </font> {{dateMaj}} </B>
+          <ul></ul>
+          <button class="btn btn-default" ng-click="paramIsCollapsed = !paramIsCollapsed" style="margin-left:08%"><font color ='42095D'><b>Parameter</b></font></button>
+      </div>
 
-    <div style="margin-left:30%"> 
+      
+
+      <hr>
+      <div collapse="paramIsCollapsed"  style="margin-left:35%">
+
+        <table>
+          <tr>
+               <div >
+                      <td><B>GW :</B></td>
+                      <td><input required type="text" ng-model="gw" name="gw"></td>
+               </div>
+          </tr>
+
+         <tr> 
+            <div>
+                <p class="input-group">
+                
+                  <td>
+                     <B>Start date :  </B>
+                  </td>
+                  <td>
+                    <input  required type="text" name="dateDebut" ng-model="dateDebut" datepicker-popup="{{format}}" is-open="opened1" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" ng-disabled="true"> -
+                  </td> 
+                  <td>
+                      <input type="text" size="2" ng-model="heureDebut" style="width:25px" > h  <input size="2" type="text"  ng-model="minDebut" style="width:25px"> min 
+                  </td>
+                  <td>
+                     <button type="button" class="btn btn-default" ng-click="open($event,'opened1')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </td>
+                  <td>
+                     <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+                  </td>
+                </p>
+            </div>
+          </tr>
+
+        <tr>
+          <div >
+               <p class="input-group">
+                <td>
+                   <B>End date : </B>  
+                 </td>
+                 <td>
+                  <input  required  type="text" name="dateFin"  ng-model="dateFin" datepicker-popup="{{format}}" is-open="opened2" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close"  ng-disabled="true"> -
+                </td> 
+                <td>
+                   <input type="text"  ng-model="heureFin" ng-maxlength="2"  style="width:25px"> h  <input type="text"  ng-maxlength="2" ng-model="minFin" style="width:25px"> min 
+                </td>
+                <td>
+                   <button type="button" class="btn btn-default" ng-click="open($event,'opened2')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </td>
+                <td>
+                   <button type="button" class="btn btn-sm btn-danger" ng-click="clear_fin()">Clear</button>
+                </td>
+               </p>
+          </div>
+        </tr>
+     </table>
+
+        <font color="red">
+          <ul>
+            <span ng-show='loginForm.dateDebut.$error.required'> A debut date is required</span>
+          </ul>
+          <ul>
+            <span ng-show='loginForm.dateFin.$error.required'>A end date is required</span>
+          </ul>
+          <ul>
+            <span ng-show='loginForm.gw.$error.required'>A GW date is required</span>
+          </ul>
+        </font>
+      </div>
+
+  </form>
+          
+     
+    <div style="margin-left:00%"> 
             <table width="1400" height="250">
                 <tr>
                     <td width="40" height="50">
@@ -54,14 +128,46 @@
                             isArea="true"
                             showLegend="true"
                             xAxisTickFormat="xAxisTickFormatFunction()"
-                            color="colorFunction()">
+                            color="colorHeartRateFunction()"
+                            legendColor="colorHeartRateFunction()"
+                            >
                         </nvd3-line-chart>
                         </td>
                 </tr>
-         </table>
+        </table>
+         
     </div>
-    <div style=" width:600px ; height:500px ;margin-left:80%">
-                    <ui-gmap-google-map 
+
+    <div style=" width:600px ;margin-left:30%">
+       <table width="1400" height="250">
+          <tr>
+            <td width="50" height="50">
+              <img src="images/XXXHDPI-Calories-Dep.png" width="50" height="50" >
+            </td>
+      
+            <td  width="600" height="250">
+              <nvd3-line-chart
+                                    data="energyData"
+                                    showXAxis="true"
+                                    showYAxis="true"
+                                    tooltips="true"
+                                    width="600"
+                                    height="250"
+                                    interactive="true"
+                                    isArea="true"
+                                    showLegend="true"
+                                    xAxisTickFormat="xAxisTickFormatFunction()"
+                                    color="colorEnergyFunction()"
+                                    legendColor="colorEnergyFunction()"
+                                    >
+                </nvd3-line-chart>
+              </td>
+          </tr>
+        </table>
+    </div>
+
+    <div style=" width:600px ; height:500px ;margin-left:30%">
+        <ui-gmap-google-map 
                         center="map.center"
                         zoom="map.zoom"
                         draggable="false"
@@ -76,9 +182,10 @@
                         </ui-gmap-marker>
 
                  
-                    </ui-gmap-google-map>
+          </ui-gmap-google-map>
     </div>
 
+  
 </div>
 
 

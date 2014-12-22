@@ -15,13 +15,13 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
 
 
  	 var initHR = function(){
-        userFactory.getHR()
+       userFactory.getHR($scope.gw,$scope.dateDebut,$scope.dateFin,$scope.heureDebut,$scope.heureFin,$scope.minDebut,$scope.minFin)
         .then(function(value){
             
               // On charge les informations de l'utilisateurs
              $scope.hrData = [
         		     	{
-        		 	        "key": "Heat Rate",
+        		 	        "key": "Heart Rate",
         		             "values": value
         		 		}
         		 	];
@@ -34,8 +34,28 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
       };
 
 
+   var initEnergy = function(){
+       userFactory.getEnergy($scope.gw,$scope.dateDebut,$scope.dateFin,$scope.heureDebut,$scope.heureFin,$scope.minDebut,$scope.minFin)
+        .then(function(value){
+            
+              // On charge les informations de l'utilisateurs
+             $scope.energyData = [
+                  {
+                      "key": "Energy",
+                         "values": value
+                }
+              ];
+
+             },function(message) {
+
+              $scope.energyData = [];
+         
+             });
+      };
+
+
     var initCadence = function(){
-        userFactory.getCandence()
+        userFactory.getCandence($scope.gw,$scope.dateDebut,$scope.dateFin,$scope.heureDebut,$scope.heureFin,$scope.minDebut,$scope.minFin)
         .then(function(value){
             
               // On charge les informations de l'utilisateurs
@@ -54,14 +74,11 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
       };
 
 
-
-
      var initMap = function(){
-        userFactory.getCoord()
+        userFactory.getCoord($scope.gw,$scope.dateDebut,$scope.dateFin,$scope.heureDebut,$scope.heureFin,$scope.minDebut,$scope.minFin)
         .then(function(coordonnee){
              
-            
-             
+
               $scope.map = {center: {latitude: coordonnee[0]['latt'], longitude: coordonnee[0]['long']}, zoom: 17 };
               $scope.options = {scrollwheel: true};
 
@@ -74,12 +91,10 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
                   },
               };
 
-
               //markers de la course 
               var markers = [];
               var paths = [];
            
-
                 for (var i = 0; i<coordonnee.length; i++) {
                   var mark = createMarker(i,coordonnee[i]['latt'],coordonnee[i]['long']);
                   markers.push(mark);
@@ -89,10 +104,8 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
                 }
   
               $scope.markersCourse = markers;
-     
-              
         
-
+              console.log(markers);
               //Polyline
               $scope.polylines = [
                 {
@@ -117,8 +130,12 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
                 }];
 
 
+
+
              },function(message) {
 
+               
+                console.log("erreur");
                 $scope.map = {center: {latitude: 45.7230052, longitude: 4.8293659}, zoom: 17 };
                 $scope.options = {scrollwheel: true};
 
@@ -174,6 +191,7 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
       $scope.dateMaj = getDate();
       initHR();
       initCadence();
+      initEnergy();
       initMap();
       promise = $timeout(loadLive, 1000);
    }
@@ -186,35 +204,77 @@ myAbout.controller('AboutCtrl',function($scope,userFactory,uiGmapGoogleMapApi,$t
     $scope.update = function(){
       $scope.dateStart = '';
       $scope.dateMaj = getDate();
+      $timeout.cancel(promise);
       initHR();
       initCadence();
       initMap();
+      initEnergy();
     }
 
 
-    $scope.colorFunction = function() {
+    $scope.colorEnergyFunction = function() {
+      return function(d, i) {
+          return '#31B404'
+        };
+    }
+
+
+      $scope.colorHeartRateFunction = function() {
       return function(d, i) {
           return '#E01B5D'
         };
     }
 
+
+
+
     $scope.xAxisTickFormatFunction = function(){
        return function(d) {
-          return d3.time.format("%Hh%Mm%Ss")(new Date(d/1000));
+          return d3.time.format(" %Hh%Mm%Ss %m/%d/%Y")(new Date(d/1000));
         };
     };
 
 
-    $scope.dateStart = getDate();   
-    $scope.dateMaj = getDate();
-    initHR();
-    initCadence();
-    initMap();
+
+    $scope.today = function() {
+      $scope.dateDebut = new Date();
+    };
    
 
+    $scope.clear = function () {
+      $scope.dateDebut = null;
+    };
 
-  
+
+    $scope.open = function($event,opened) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope[opened] = true;
+    };
+
+    $scope.today_fin = function() {
+      $scope.dateFin = getDate();
+    };
+   
+
+    $scope.clear_fin = function () {
+      $scope.dateFin = null;
+    };
+
+    var initIHM = function(){
+      $scope.gw = "GW1417029"
+
+    }
 
 
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    $scope.formats = ['dd.MM.yyyy'];
+    $scope.format = $scope.formats[0];
+    $scope.paramIsCollapsed = false;
+    initIHM();
  	
 });

@@ -8,9 +8,10 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /> -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
-     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main.css" />
+
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -18,19 +19,23 @@
     
     <!-- endbuild -->
   </head>
-  <body ng-app="inventoryApp">
+  <body ng-app="inventoryApp" style="background-image: url(images/iStock_000015768000Medium.png) ; background-position: center center;
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-size: cover;
+            background-size: 100% 100%; ">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
+    <div class="container" >
       <div class="header">
      
-       <img src="images/Logo_smoozi.png" style="width:300px;height:auto; margin-left:105%">
+       <img src="images/Logo_smoozi.png" style="width:300px;height:auto; margin-left:42%">
       </div>
 
-      <div ng-view=""></div>
+      <div ng-view="" ></div>
 
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> from the CZS team</p>
